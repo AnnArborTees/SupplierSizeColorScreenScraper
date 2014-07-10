@@ -10,7 +10,16 @@ def colors_from_bodek(url)
   return colors
 end
 
+def sizes_from_bodek(url)
+  doc = Nokogiri::HTML(open(url))
+  text = doc.at_css('.availColorsTable tr:nth-child(3)').text.strip.lstrip
+  sizes_text = text[0, text.index(':')]
+  puts sizes_text
+end
+
 url = "http://www.bodekandrhodes.com/cgi-bin/barlive/site.w?location=olc/cobrand-product.w&product=4420&category=3&frames=no&target=main&sponsor=000001&nocache=48001"
 colors_from_bodek(url).each do |color|
   puts color
 end
+
+sizes_from_bodek(url)
